@@ -187,8 +187,8 @@ public class BitbucketServerAPIClient implements BitbucketApi {
             return pullRequests;
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "invalid pull requests response", e);
+            throw new BitbucketRequestException(0, "invalid pull requests response" + e, e);
         }
-        return Collections.EMPTY_LIST;
     }
 
     /** {@inheritDoc} */
@@ -199,8 +199,8 @@ public class BitbucketServerAPIClient implements BitbucketApi {
             return parse(response, BitbucketServerPullRequest.class);
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, "invalid pull request response.", e);
+            throw new BitbucketRequestException(0, "invalid pull request response." + e, e);
         }
-        return null;
     }
 
     /** {@inheritDoc} */
@@ -214,8 +214,8 @@ public class BitbucketServerAPIClient implements BitbucketApi {
             return parse(response, BitbucketServerRepository.class);
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, "invalid repository response.", e);
+            throw new BitbucketRequestException(0, "invalid repository response." + e, e);
         }
-        return null;
     }
 
     /** {@inheritDoc} */
@@ -267,8 +267,8 @@ public class BitbucketServerAPIClient implements BitbucketApi {
             return branches;
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "invalid branches response", e);
+            throw new BitbucketRequestException(0, "invalid branches response: " + e, e);
         }
-        return Collections.EMPTY_LIST;
     }
 
     /** {@inheritDoc} */
@@ -279,8 +279,8 @@ public class BitbucketServerAPIClient implements BitbucketApi {
             return parse(response, BitbucketServerCommit.class);
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, "invalid commit response.", e);
+            throw new BitbucketRequestException(0, "invalid commit response." + e, e);
         }
-        return null;
     }
 
     /** {@inheritDoc} */
@@ -318,8 +318,8 @@ public class BitbucketServerAPIClient implements BitbucketApi {
                 return parse(response, BitbucketServerProject.class);
             } catch (IOException e) {
                 LOGGER.log(Level.WARNING, "invalid project response.", e);
+                throw new BitbucketRequestException(0, "invalid project response." + e, e);
             }
-            return null;
         }
     }
 
@@ -344,9 +344,9 @@ public class BitbucketServerAPIClient implements BitbucketApi {
             }
             return repositories;
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "invalid branches response", e);
+            LOGGER.log(Level.SEVERE, "invalid repositories response", e);
+            throw new BitbucketRequestException(0, "invalid repositories response" + e, e);
         }
-        return Collections.EMPTY_LIST;
     }
 
     /** {@inheritDoc} */
